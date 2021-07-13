@@ -23,7 +23,7 @@ t.integer age
 ----------------------------------------------------------------------------------------------------------
 
                 
-* user_workouts
+* users_workouts
 belongs_to user
 belongs_to workout
 
@@ -82,15 +82,15 @@ t.integer duration
 * MVP Deliverables 
 user can browse/select by workout type
 user can make an account  
-user can  create their own workout 
+user can  create their own workout or choose from the list provided
 user can update their info
 user can look at their account/portfolio
 
 
 * Stretch Deliverables 
 connect to front-end 
-user can leave a review 
-have the most reviewd workout 
+user can leave a review on the workkout
+show the most reviewd workout 
 user can delete account
 
 
