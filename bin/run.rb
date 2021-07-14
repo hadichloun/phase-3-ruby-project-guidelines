@@ -20,7 +20,7 @@ def login
             if users.include?(current_username) && User.all.find_by(password: current_password)
                 header = Artii::Base.new(:font => "slant")
                 puts header.asciify("Let's Workout!")
-                menu
+                # menu
             else
                 puts "Incorrect username or password.".red
                 try_again = prompt.select("Would you like to try again?".blue, ["Yes", "No"])
@@ -32,5 +32,12 @@ def login
                 end
             end
         end
-     
+        if login_choice == "Sign Up"
+            new_username = prompt.ask("Create account with your Email.".light_yellow, required: true)
+            new_password = prompt.ask("Create a password.".light_yellow, required: true)
+            new_first_name = prompt.ask("What is your first name?".light_yellow, required: true)
+            new_last_name = prompt.ask("What is your last name?".light_yellow, required: true) do |a|
+                a.validate(/^(?=.*[0-9]).{1,4}$/)
+                a.messages[:valid?] = "Invalid, try again."
+end
 login
