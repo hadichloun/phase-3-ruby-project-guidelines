@@ -36,8 +36,15 @@ def login
             new_username = prompt.ask("Create account with your Email.".light_yellow, required: true)
             new_password = prompt.ask("Create a password.".light_yellow, required: true)
             new_first_name = prompt.ask("What is your first name?".light_yellow, required: true)
-            new_last_name = prompt.ask("What is your last name?".light_yellow, required: true) do |a|
-                a.validate(/^(?=.*[0-9]).{1,4}$/)
-                a.messages[:valid?] = "Invalid, try again."
+            new_last_name = prompt.ask("What is your last name?".light_yellow, required: true) 
+            age = prompt.ask("how old are you?".light_yellow, required: true) 
+            User.create(email: new_username, password: new_password, first_name: new_first_name, last_name: new_last_name, age: age)
+            puts "New account made!".green
+            welcome
+            login
+        end
+        if login_choice == "Exit"
+            exit!
+        end
 end
 login
