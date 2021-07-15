@@ -2,10 +2,10 @@ require_relative '../config/environment'
 
 def welcome
     title = Artii::Base.new(:font => "epic")
-    puts title.asciify("EPIC WORKOUT")
+    puts title.asciify("EPIC WORKOUT").blue
     puts "Welcome to EPIC WORKOUT!🏋️‍♂️🚴🧘‍♂️🏃‍♂️
     EPIC WORKOUT CLI app allows you to build or choose a full body workout, you can save workouts and access other users 
-    workouts. Please login to continue or sign up to make an account!" .cyan
+    workouts. Please login to continue or sign up to make an account!" .blue
 end
 
 welcome
@@ -47,4 +47,80 @@ def login
             exit!
         end
 end
-login
+
+def menu
+    options = TTY::Prompt.new
+    menu_choice = options.select("Please select one of the following", ["Start a new workout", "Look at my account details", "Exit app"])
+        if menu_choice == "Start a new workout"
+            a_new_workout = TTY::Prompt.new
+            build_or_start = a_new_workout.select("would like to create your workout or select from the list?".blue, ["Select from list", "create a new workout", "Go back to profile"])
+            if build_or_start == "Select from list"
+                select_from_gallery
+            elsif build_or_start == "Create a new workout"
+                make_new_workout
+            elsif build_or_start == "Go back to profile"
+                menu
+            end
+        elsif menu_choice == "Look at my account Information"
+            a_prompt = TTY::Prompt.new
+            account_prompt = a_prompt.select("What would you like to do?".blue, ["Look at my profile", "Change my username", "Change my password", "Delete my account", "Go back to menu"])
+                if account_prompt == "Look at my profile"
+                    look_at_profile
+                elsif account_prompt == "Change my username"
+                    change_username
+                elsif account_prompt == "Change my password"
+                    change_password
+                elsif account_prompt == "Delete my account"
+                    delete_account
+                elsif account_prompt == "Go back to menu"
+                    menu
+                end
+        elsif menu_choice == "Exit"
+            exit!
+        end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def intensity_options
+#     prompt = TTY::Prompt.new
+#     inten_opt = prompt.select("What is the intensity of this workout?".blue, ["Low", "Medium", "High"])
+#     if inten_opt == "Low"
+#         set_intensity = "low"
+#     elsif inten_opt == "Medium"
+#         set_intensity = "medium"
+#     elsif inten_opt == "High"
+#         set_intensity = "high"
+#     end
+#     set_intensity
+# end
+
+
+
+
+
+
+
+login       
+welcome
+# intensity_options
+menu
+
+ 
