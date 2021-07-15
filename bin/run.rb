@@ -99,22 +99,6 @@ end
 
 
 
-# def intensity_options
-#     prompt = TTY::Prompt.new
-#     inten_opt = prompt.select("What is the intensity of this workout?".blue, ["Low", "Medium", "High"])
-#     if inten_opt == "Low"
-#         set_intensity = "low"
-#     elsif inten_opt == "Medium"
-#         set_intensity = "medium"
-#     elsif inten_opt == "High"
-#         set_intensity = "high"
-#     end
-#     set_intensity
-# end
-
-
-
-
 
 
 
