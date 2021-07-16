@@ -15,11 +15,11 @@ def login
     prompt = TTY::Prompt.new
     login_choice = prompt.select("What would you like to do?".blue, ["Login", "Sign Up", "Exit"])
         if login_choice == "Login"
-            current_username = prompt.ask("What is your username?".green, required: true)
+            current_username = prompt.ask("What is your email?".green, required: true)
             current_password = prompt.mask("Enter your password.".green, required: true)
             if users.include?(current_username) && User.all.find_by(password: current_password)
                 header = Artii::Base.new(:font => "slant")
-                puts header.asciify("Let's Workout!")
+                puts header.asciify("Enjoy your Workout!")
                 # menu
             else
                 puts "Incorrect username or password.".red
@@ -82,6 +82,67 @@ end
 
 
 
+
+def select_from_gallery
+    prompt_workouts = TTY::Prompt.new
+        workouts = Workout.all
+        workout_choice = prompt_workouts.select("choose your workout.".blue) do |menu|
+            workouts.each do |object|
+                menu.choice "#{object.name}", object
+            end
+        end
+    puts "Great choice! This is a #{workout_choice.workout_type} workout.".blue
+    prompt_start = TTY::Prompt.new
+    start_workout = prompt_start.select("Would you like to start your workout?".blue, ["let's do it!", "nahh too hard!"])
+    if start_workout == "let's do it!"
+        x1 = workout_choice.yoga_id
+        x2 = workout_choice.cardio_id
+        x3 = workout_choice.strength_id
+        
+        #grabbing object by the id from above^
+        yoga_obj = Yoga.all.select{|object| object.id == x1}
+        cardio_obj = Cardio.all.select{|object| object.id == x2}
+        strength_obj = Strength.all.select{|object| object.id == x3}
+    
+
+        #grabbing yoga attributes by mapping
+        yoga_obj_name = yoga_obj.map{|object| object.name}
+        cardio_obj_intensity = cardio_obj.map{|object| object.intensity}
+        strength_obj_duration = strength_obj.map{|object| object.duration}
+
+        #grabbing cardio attributes by mapping
+        yoga_obj_name = yoga_obj.map{|object| object.name}
+        yoga_obj_intensity =yoga_obj.map{|object| object.intensity}
+        yoga_obj_duration = yoga_obj.map{|object| object.duration}
+        #grabbing stretch attributes by mapping
+
+        cardio_obj_name = cardio_obj.map{|object| object.name}
+        cardio_obj_intensity = cardio_obj.map{|object| object.intensity}
+        cardio_obj_duration = cardio_obj.map{|object| object.duration}
+
+        #grabbing shoulders attributes by mapping
+        strength_obj_name = strength_obj.map{|object| object.name}
+        strength_obj_intensity = strength_obj.map{|object| object.intensity}
+        strength_obj_duration = strength_obj.map{|object| object.duration}
+        
+
+        x_prompt = TTY::Prompt.new
+        puts_prompt = x_prompt.select("how would you like to workout? virtually or at the gym facility?".blue, ["virtually!", "I'll head to the gym!"])
+        if puts_prompt == "virtually!"
+        puts  "PLEASE be prepared via zoom at 8:00 central time, make sure you have plenty of space for this amazing workout! This workout has Yoga exercise called #{yoga_obj_name}, it is a #{yoga_obj_intensity} intensity exercise that lasts for #{yoga_obj_duration} minute(s). 
+        This workout has an #{cardio_obj_name}, it is a #{cardio_obj_intensity} intensity exercise that lasts for #{cardio_obj_duration} minute(s). Let's get going! 
+        One of the important duties before workout is strength #{strength_obj_name}, it is a #{strength_obj_intensity} intensity exercise that lasts for #{strength_obj_duration} minute(s). nice!.".magenta
+        menu
+        elsif puts_prompt == "I'll head to the gym!"
+        puts "Please make your way to yoga room, first exercise called #{yoga_obj_name} that is a #{yoga_obj_intensity} intensity level exercise, do this for #{yoga_obj_duration} minute(s).".magenta
+        puts "Please make your way to cardio room, first exercise called #{cardio_obj_name} that is a #{cardio_obj_intensity} intensity level exercise, do this for #{cardio_obj_duration} minute(s).".magenta
+        puts "Please make your way to strength room, first exercise called #{strength_obj_name} that is a #{strength_obj_intensity} intensity level exercise, do this for #{strength_obj_duration} minute(s).".magenta
+        menu
+        end
+    elsif start_workout == "No"
+        menu
+    end
+end
 
 
 
