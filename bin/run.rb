@@ -153,6 +153,37 @@ elsif  profile_choice == "Go back to menu"
     end
 end
 
+def change_password
+    my_users = User.all.map{|use| use.email}
+    prompt = TTY::Prompt.new
+    you_sure = prompt.select("Are you sure you want to change your password?".blue, ["Yes", "No"])
+    if you_sure == "Yes"
+        your_email = prompt.ask("Please enter your email to continue:")
+        your_password = prompt.mask("Please enter your password:")
+        if my_users.include?(your_email) && User.all.find_by(password: your_password)
+            your_confirm_password = prompt.mask("Please confirm your password:")
+            if your_password == your_confirm_password
+                new_password = prompt.ask("Please enter new password:")
+                new_password_confirm = prompt.ask("Please confirm your new password:")
+                if new_password == new_password_confirm
+                x_user = User.all.find_by(password: your_password)
+                x_user.update(password: new_password)
+                puts "Your password is now changed.".light_yellow
+                welcome
+                login
+                end
+            else 
+                puts "Passwords do not match."
+            end
+        else 
+            puts "Incorrect email or password."
+            menu
+        end
+    elsif you_sure == "No"
+        menu
+    end
+end
+
 def menu
     options = TTY::Prompt.new
     menu_choice = options.select("Please select one of the following", ["Workout", "Look at my account details", "Exit app"])
@@ -189,34 +220,7 @@ def menu
 
     if menu_choice == "Exit app"
         exit
-    end
-        # if menu_choice == "Workout"
-        #     a_new_workout = TTY::Prompt.new
-        #     build_or_start = a_new_workout.select("would like to create your workout or select from the list?".blue, ["Select from list", "create a new workout", "Go back to profile"])
-        #     if build_or_start == "Select from list"
-        #         select_from_gallery
-        #     elsif build_or_start == "Create a new workout"
-        #         make_new_workout
-        #     elsif build_or_start == "Go back to profile"
-        #         menu
-        #     end
-        # elsif menu_choice == "Look at my account Information"
-        #     a_prompt = TTY::Prompt.new
-        #     account_prompt = a_prompt.select("What would you like to do?".blue, ["Look at my profile", "Change my email", "Change my password", "Delete my account", "Go back to menu"])
-        #         if account_prompt == "Look at my profile"
-        #             look_at_profile
-        #         elsif account_prompt == "Change my email"
-        #             change_email
-        #         elsif account_prompt == "Change my password"
-        #             change_password
-        #         elsif account_prompt == "Delete my account"
-        #             delete_account
-        #         elsif account_prompt == "Go back to menu"
-        #             menu
-        #         end
-        # elsif menu_choice == "Exit"
-        #     exit!
-        # end
+    end        
 end
 
 
