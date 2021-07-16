@@ -24,8 +24,8 @@ nala = User.create(email: "curiousk@gmail", password: "123", first_name: "Nala",
 michael = User.create(email: "mj@gmail", password: "123", first_name: "Michael", last_name: "Jordan", age: 23)
 #Workout
 workout1 = Workout.create(name: "the beginner style", workout_type: "Full Body", yoga_id: yoga2.id, cardio_id: cardio1.id, strength_id: strength3.id)
-workout2 = Workout.create(name: "navy seal training", workout_type: "Full Body", yoga_id: yoga3.id, cardio_id: cardio3.id, strength_id: strength2.id)
-workout3 = Workout.create(name: "the imposible", workout_type: "Full Body", yoga_id: yoga1.id, cardio_id: cardio2.id, strength_id: strength1.id)
+workout2 = Workout.create(name: "intermediate training", workout_type: "Full Body", yoga_id: yoga3.id, cardio_id: cardio3.id, strength_id: strength2.id)
+workout3 = Workout.create(name: "the imposible training", workout_type: "Full Body", yoga_id: yoga1.id, cardio_id: cardio2.id, strength_id: strength1.id)
 #User_Workouts
 UsersWorkout.create(name: michael, workouts_id: workout1.id, total_duration: 6, favorites: nil)
 UsersWorkout.create(name: hadi, workouts_id: workout2.id, total_duration: 10, favorites: nil)

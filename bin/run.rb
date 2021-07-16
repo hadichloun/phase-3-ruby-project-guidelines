@@ -50,8 +50,8 @@ end
 
 def menu
     options = TTY::Prompt.new
-    menu_choice = options.select("Please select one of the following", ["Start a new workout", "Look at my account details", "Exit app"])
-        if menu_choice == "Start a new workout"
+    menu_choice = options.select("Please select one of the following", ["Workout", "Look at my account details", "Exit app"])
+        if menu_choice == "Workout"
             a_new_workout = TTY::Prompt.new
             build_or_start = a_new_workout.select("would like to create your workout or select from the list?".blue, ["Select from list", "create a new workout", "Go back to profile"])
             if build_or_start == "Select from list"
